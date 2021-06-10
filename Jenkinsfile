@@ -142,11 +142,24 @@ spec:
 }
 
 def buildInstaller() {
+    int MAX_RETRY = 3
+
     checkout scm
     sh "printenv && yarn cache dir"
     sh "yarn cache clean"
+    try {
+        // sh(script: 'yarn --frozen-lockfile --force')
+        sh(script: '/bin/false')
+    } catch(error) {
+        retry(MAX_RETRY) {
+            echo "yarn failed - Retrying"
+            sh(script: 'yarn --frozen-lockfile --force')        
+        }
+    }
+
+    /*
     // Retry a couple times, if yarn fails
-    int MAX_RETRY = 3
+    int MAX_RETRY = 1
     for (int i = 0; i < MAX_RETRY ; i++) {
         if (sh(script: 'yarn --frozen-lockfile --force', returnStatus: true) == 0) {
             break
@@ -156,6 +169,8 @@ def buildInstaller() {
         // e.g. performing a "git clean -ffdx" - it seems to
         // affect more than the current build/OS. 
     }
+    */
+
     sh "rm -rf ./${distFolder}"
     sshagent(['projects-storage.eclipse.org-bot-ssh']) {
         sh "yarn electron deploy"
