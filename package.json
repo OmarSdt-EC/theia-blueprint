@@ -35,13 +35,22 @@
     "lint:fix": "lerna run lint:fix",
     "clean": "lerna run clean && rimraf node_modules",
     "build": "lerna run build",
-    "bundle": "lerna run bundle",
     "watch": "lerna run --parallel watch",
     "test": "lerna run test",
+    "browser": "yarn --cwd applications/browser",
     "electron": "yarn --cwd applications/electron"
   },
   "workspaces": [
     "applications/*",
-    "theia-extensions/*"
-  ]
+    "theia-extensions/*",
+    "submodules/pkg"
+  ],
+  "resolutions": {
+    "**/@types/react": "^16.8.0",
+    "**/@types/webpack": "^5.28.0",
+    "**/webpack": "^5.34.0",
+    "**/webpack-cli": "^4.6.0",
+    "**/worker-loader": "^3.0.8",
+    "**/copy-webpack-plugin": "^8.1.1"
+  }
 }

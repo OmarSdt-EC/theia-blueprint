@@ -1,0 +1,46 @@
+name: Browser Cpp Example
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs: 
+
+  build: 
+    name: Build the blueprint browser package and create a docker image from it
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: Checkout Repository code 
+      uses: actions/checkout@v2
+    - name: Install Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+          node-version: ${{ matrix.node-version }}
+    - name: Install Yarn
+      run : npm install yarn
+    - name: Yarn
+      run : yarn
+    - name: Bundle Blueprint Browser
+      run : yarn browser bundle
+    - name: Package Blueprint Browser
+      run : yarn browser package
+      
+
+    # steps:
+    # - name: Build the Docker Image
+    # - uses: actions/checkout@v2
+    #     run:
+    #       cd applications/browser
+    #       docker build --no-cache cpp_image
+    
+    # steps:
+    # - name: Run the Docker Image
+    # - uses: actions/checkout@v2
+    #     run:
+    #       cd applications/example_cpp
+    #       docker run -it --rm -p 3000:3000 -v "$(pwd)":/home/example_cpp cpp_image
