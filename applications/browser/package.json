@@ -130,6 +130,7 @@
     "vscjava.vscode-java-dependency": "https://open-vsx.org/api/vscjava/vscode-java-dependency/0.16.0/file/vscjava.vscode-java-dependency-0.16.0.vsix",
     "alphabotsec.vscode-eclipse-keybindings": "https://open-vsx.org/api/alphabotsec/vscode-eclipse-keybindings/0.12.0/file/alphabotsec.vscode-eclipse-keybindings-0.12.0.vsix",
     "ms-vscode.js-debug": "https://open-vsx.org/api/ms-vscode/js-debug/1.52.2/file/ms-vscode.js-debug-1.52.2.vsix",
+    "vscode.cpp": "https://open-vsx.org/api/vscode/cpp/1.52.1/file/vscode.cpp-1.52.1.vsix",
     "vscode.css": "https://open-vsx.org/api/vscode/css/1.52.1/file/vscode.css-1.52.1.vsix",
     "vscode.css-language-features": "https://open-vsx.org/api/vscode/css-language-features/1.52.1/file/vscode.css-language-features-1.52.1.vsix",
     "vscode.docker": "https://open-vsx.org/api/vscode/docker/1.52.1/file/vscode.docker-1.52.1.vsix",
