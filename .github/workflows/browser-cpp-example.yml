@@ -1,0 +1,41 @@
+name: Browser Cpp Example
+
+on:
+  push:
+    branches:
+      - os/cpp_BrowserExample
+
+jobs: 
+
+  build: 
+    name: Build the blueprint browser package, create a docker image from it and run some tests
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: Checkout Repository code 
+      uses: actions/checkout@v2
+    - name: Install Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+          node-version: ${{ matrix.node-version }}
+    - name: Install Yarn
+      run : npm install yarn
+    - name: Run Yarn
+      run : yarn
+    - name: Bundle Blueprint Browser
+      run : yarn browser bundle
+    - name: Package Blueprint Browser
+      run : yarn browser package
+    - name: Create image
+      run : |
+       docker build --no-cache -t cpp_image -f ./applications/browser/Dockerfile .
+       docker images
+    - name: Run image
+      run : docker run -d -p 3000:3000 cpp_image
+    - name: Set a timeout
+      run : node -e "setTimeout(process.exit, 10000, 0)"
+    - name: Run headless test
+      run : yarn browser test
